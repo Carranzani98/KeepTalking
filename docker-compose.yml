@@ -1,15 +1,11 @@
-version: "3.7"
+version: "3.8"
 
 services: 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    environment:
-      DB_HOST: db
-      DB_DATABASE: keep_talking_db
-      DB_USERNAME: root
-      DB_PASSWORD: root
+    command: 'php artisan serve --host=0.0.0.0'
     ports:
       - 8000:8000
     volumes:
@@ -34,17 +30,20 @@ services:
     networks:
       - app
 
-
   db:
-    image: mysql:8.0.30
-    environment:
-      MYSQL_DATABASE: "keep_talking_db"
-      MYSQL_USER: "root"
-      MYSQL_PASSWORD: "root"
-      MYSQL_ROOT_PASSWORD: "root"
-    networks:
-      - app
+   image: mysql:8.0.30
+   environment:
+     MYSQL_DATABASE: "keep_talking_db"
+     MYSQL_ROOT_PASSWORD: "root"
+   networks:
+     - app
+   ports:
+     - 3307:3306
+   expose:
+     - 3307
 
 networks:
   app:
     driver: bridge
+
+    

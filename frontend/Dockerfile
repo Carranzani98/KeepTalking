@@ -4,11 +4,7 @@ WORKDIR /app/frontend
 
 COPY . .
 
-RUN npm install && \
-    npm run build
+RUN npm install
 
-FROM nginx:alpine
-
-COPY --from=builder /app/frontend/dist/* /usr/share/nginx/html/
-
-COPY --from=builder /app/frontend/config/default.conf /etc/nginx/conf.d/default.conf
+EXPOSE 3000
+CMD npm start
