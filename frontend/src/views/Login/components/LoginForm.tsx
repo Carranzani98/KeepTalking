@@ -6,15 +6,17 @@ import {
   TextInput,
   PasswordInput,
   Text,
-  Paper,
   Group,
   Button,
   Divider,
   Stack,
   Title,
   Anchor,
+  Box,
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
+
+import { inputsStyles, passwordStyles } from '../../../utils/AuthStyles'
 
 const LoginForm = () => {
   const form = useForm({
@@ -24,7 +26,8 @@ const LoginForm = () => {
     },
 
     validate: {
-      email: val => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
+      email: val =>
+        /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(val) ? null : 'Invalid email',
       password: val =>
         val.length <= 6
           ? 'Password should include at least 6 characters'
@@ -32,32 +35,14 @@ const LoginForm = () => {
     },
   })
 
-  const inputsStyles = {
-    input: {
-      height: 50,
-      backgroundColor: '#FFEFEF',
-      color: '#FF7E7E',
-      '&:focus, &:focus-within': {
-        borderColor: '#FFEFEF',
-      },
-      '&::placeholder': {
-        color: '#FF7E7E',
-      },
-    },
-  }
-
   return (
-    <Paper radius="md" sx={{ width: 369 }}>
-      <Title order={2} weight="normal">
-        Sign In
-      </Title>
-
+    <Box sx={{ width: 369 }}>
       <Group mb="md" mt="md" position="center">
         <Text color="dimmed" sx={{ cursor: 'pointer' }}>
-          <FontAwesomeIcon icon={faGoogle} />
+          <FontAwesomeIcon size="xl" icon={faGoogle} />
         </Text>
         <Text color="dimmed" sx={{ cursor: 'pointer' }}>
-          <FontAwesomeIcon icon={faFacebook} />
+          <FontAwesomeIcon size="xl" icon={faFacebook} />
         </Text>
       </Group>
 
@@ -70,6 +55,7 @@ const LoginForm = () => {
       >
         <Stack>
           <TextInput
+            size="lg"
             variant="filled"
             styles={inputsStyles}
             required
@@ -82,16 +68,10 @@ const LoginForm = () => {
           />
 
           <PasswordInput
+            size="lg"
             variant="filled"
             styles={{
-              innerInput: {
-                '&::placeholder': {
-                  color: '#FF7E7E',
-                },
-              },
-              visibilityToggle: {
-                color: '#FF7E7E',
-              },
+              ...passwordStyles,
               ...inputsStyles,
             }}
             required
@@ -122,7 +102,7 @@ const LoginForm = () => {
           Login
         </Button>
       </form>
-    </Paper>
+    </Box>
   )
 }
 

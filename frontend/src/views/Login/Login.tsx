@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, Group, Image, Stack } from '@mantine/core'
+import { Box, Group } from '@mantine/core'
 
 import CommonInitialText from '../../components/CommonInitialText/CommonInitialText'
 import Header from '../../components/Header/Header'
@@ -12,27 +12,16 @@ const Login = () => {
       <Header view="loginAndRegister" />
       <Group
         noWrap
-        p={50}
-        pb={30}
-        sx={{ justifyContent: 'space-around', alignItems: 'stretch' }}
+        p={30}
+        align="stretch"
+        sx={{ justifyContent: 'space-around' }}
       >
-        <Stack sx={{ alignItems: 'center' }} spacing="xs">
-          <CommonInitialText
-            view="login"
-            title="Sign in"
-            text="If you don't have an account register"
-            anchorText="Register here!"
-          />
-          <Image
-            mt="xl"
-            src="images/auth-ilustration.png"
-            alt="Girl chatting with her phone"
-            fit="contain"
-            width={450}
-            height={255}
-            withPlaceholder
-          />
-        </Stack>
+        <CommonInitialText
+          view="login"
+          title="Sign in"
+          text="If you don't have an account register"
+          anchorText="Register here!"
+        />
 
         <LoginForm />
       </Group>
