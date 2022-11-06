@@ -10,6 +10,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mantine/core": "^5.7.0",
+    "@mantine/dates": "^5.7.1",
     "@mantine/form": "^5.7.0",
     "@mantine/hooks": "^5.7.0",
     "@testing-library/jest-dom": "^5.16.5",
