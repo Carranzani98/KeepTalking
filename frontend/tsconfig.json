@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es6", "dom", "dom.iterable"],
+    "module": "esnext",
+    "jsx": "react",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "importHelpers": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "allowJs": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  },
+  "include": ["src","public","index.d.ts"],
+  "exclude": ["node_modules"],
+  "extends": "./tsconfig.paths.json"
+}
