@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faCalendar } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -11,15 +11,22 @@ import {
   Button,
   Divider,
   Stack,
-  Title,
   Select,
   MultiSelect,
   Textarea,
   Box,
+  SelectItem,
 } from '@mantine/core'
 import { DatePicker } from '@mantine/dates'
 import { useForm } from '@mantine/form'
+import { useMutation, useQuery } from '@tanstack/react-query'
 
+import {
+  getCountries,
+  getLanguages,
+  postRegister,
+} from '../../../services/api/models/auth/AuthApi'
+import { RegisterFormValues } from '../../../services/api/types/User'
 import {
   inputsStyles,
   mainAuthColor,
@@ -28,78 +35,109 @@ import {
 } from '../../../utils/AuthStyles'
 
 const RegisterForm = () => {
+  const registerMutation = useMutation(postRegister)
+
   //Llamar endpoint getCountries de la DB
-  const countries = [
-    { value: 'ES', label: 'Spain' },
-    { value: 'ARG', label: 'Argentina' },
-    { value: 'EN', label: 'England' },
-    { value: 'CU', label: 'Cuba' },
-  ]
+  const countries = useQuery({
+    queryKey: ['countries'],
+    queryFn: getCountries,
+  })
 
   //Llamar endpoint getLanguages de la DB
-  const languages = [
-    { value: 'ES', label: 'Spanish' },
-    { value: 'EN', label: 'English' },
-    { value: 'FR', label: 'French' },
-    { value: 'IT', label: 'Italian' },
-  ]
+  const languages = useQuery({
+    queryKey: ['languages'],
+    queryFn: getLanguages,
+  })
 
+  const getCountriesData = () => {
+    if (countries.data) {
+      return countries.data.data.map(country => ({
+        label: country.country,
+        value: country.code,
+      })) as SelectItem[]
+    } else {
+      return []
+    }
+  }
+  const getLanguagesData = () => {
+    if (languages.data) {
+      return languages.data.data.map(language => ({
+        label: language.language_name,
+        value: language.code,
+      })) as SelectItem[]
+    } else {
+      return []
+    }
+  }
   const form = useForm({
     initialValues: {
       email: '',
-      user: {
-        name: '',
-        surname: '',
-        birthday: new Date(),
-        country: '',
-      },
+      name: '',
+      surname: '',
+      birthday: '',
+      country: '',
       password: '',
       confirmPassword: '',
-      languages: [''],
-      languagesToLearn: [''],
+      languageCodes: [''],
+      toLearnLanguageCodes: [''],
       description: '',
     },
 
     validate: {
       email: val =>
         /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(val) ? null : 'Invalid email',
-      user: {
-        name: val =>
-          val.length < 2 ? 'Name must have at least 2 characters' : null,
-        surname: val =>
-          val.length < 2 ? 'Name must have at least 2 characters' : null,
-      },
+
+      name: val =>
+        val.length < 2 ? 'Name must have at least 2 characters' : null,
+      surname: val =>
+        val.length < 2 ? 'Name must have at least 2 characters' : null,
+
       password: val =>
         val.length <= 6
-          ? 'Password should include at least 6 characters'
-          : null,
+          ? null
+          : 'Password should include at least 6 characters',
       confirmPassword: (val, values) =>
         val !== values.password ? 'Passwords did not match' : null,
 
-      languages: val =>
+      languageCodes: val =>
         val.length === 0 ? 'At least one language must be selected' : null,
 
-      languagesToLearn: val =>
+      toLearnLanguageCodes: val =>
         val.length === 0 ? 'At least one language must be selected' : null,
     },
   })
 
+  const handleSubmit = (formValues: RegisterFormValues) => {
+    registerMutation.mutate(formValues, {
+      onSuccess: () => (location.href = '/login'),
+      onError: error => alert(error),
+    })
+  }
+
+  function padTo2Digits(num: number) {
+    return num.toString().padStart(2, '0')
+  }
+
+  function formatDate(date: Date) {
+    const newDate = [
+      padTo2Digits(date.getMonth() + 1),
+      padTo2Digits(date.getDate()),
+      date.getFullYear(),
+    ].join('/')
+    return newDate
+  }
+
   return (
     <Box sx={{ width: 550 }} mr={50}>
-      <Group mb="md" position="center">
-        <Text color="dimmed" sx={{ cursor: 'pointer' }}>
-          <FontAwesomeIcon size="xl" icon={faGoogle} />
-        </Text>
-        <Text color="dimmed" sx={{ cursor: 'pointer' }}>
-          <FontAwesomeIcon size="xl" icon={faFacebook} />
-        </Text>
-      </Group>
+      <Text color="dimmed" sx={{ cursor: 'pointer', textAlign: 'center' }}>
+        <FontAwesomeIcon size="xl" icon={faGoogle} />
+      </Text>
 
       <Divider label="Or continue with email" labelPosition="center" my="lg" />
 
       <form
-        onSubmit={form.onSubmit(() => {
-          console.log(form.values)
+        onSubmit={form.onSubmit(values => {
+          handleSubmit(values)
         })}
       >
         <Group grow position="apart" align="flex-start">
@@ -122,9 +160,9 @@ const RegisterForm = () => {
               styles={inputsStyles}
               required
               placeholder="Name"
-              value={form.values.user.name}
+              value={form.values.name}
               onChange={event =>
-                form.setFieldValue('user.name', event.currentTarget.value)
+                form.setFieldValue('name', event.currentTarget.value)
               }
               error={form.errors.email && 'Invalid email'}
             />
@@ -134,9 +172,9 @@ const RegisterForm = () => {
               styles={inputsStyles}
               required
               placeholder="Surname"
-              value={form.values.user.surname}
+              value={form.values.surname}
               onChange={event =>
-                form.setFieldValue('user.surname', event.currentTarget.value)
+                form.setFieldValue('surname', event.currentTarget.value)
               }
               error={form.errors.surname}
             />
@@ -151,7 +189,9 @@ const RegisterForm = () => {
               rightSection={
                 <FontAwesomeIcon color={mainAuthColor} icon={faCalendar} />
               }
-              onChange={value => form.setFieldValue('user.birthday', value)}
+              onChange={(value: Date) =>
+                form.setFieldValue('birthday', formatDate(value))
+              }
             />
 
             <PasswordInput
@@ -193,8 +233,8 @@ const RegisterForm = () => {
               size="lg"
               required
               placeholder="Country"
-              value={form.values.user.country}
-              data={countries}
+              value={form.values.country}
+              data={getCountriesData()}
               styles={{
                 item: {
                   fontSize: 14,
@@ -205,29 +245,32 @@ const RegisterForm = () => {
               allowDeselect
               clearable
               searchable
-              onChange={value => form.setFieldValue('user.country', value)}
+              onChange={(value: string) => form.setFieldValue('country', value)}
             />
             <MultiSelect
               styles={multiSelect}
               size="lg"
+              maxSelectedValues={4}
               required
-              data={languages}
+              data={getLanguagesData()}
               placeholder="Languages you speak (max 4)"
               searchable
               clearable
-              value={form.values.languages}
-              onChange={value => form.setFieldValue('languages', value)}
+              value={form.values.languageCodes}
+              onChange={value => form.setFieldValue('languageCodes', value)}
             />
             <MultiSelect
               size="lg"
               styles={multiSelect}
               maxSelectedValues={4}
               required
-              data={languages}
+              data={getLanguagesData()}
               placeholder="Languages to learn (max 4)"
               searchable
               clearable
-              onChange={value => form.setFieldValue('languagesToLearn', value)}
+              onChange={value =>
+                form.setFieldValue('toLearnLanguageCodes', value)
+              }
             />
 
             <Textarea
@@ -236,6 +279,9 @@ const RegisterForm = () => {
                 ...{ input: { ...inputsStyles.input, height: 116 } },
               }}
               placeholder="Description"
+              onChange={event =>
+                form.setFieldValue('description', event.target.value)
+              }
             />
           </Stack>
         </Group>

@@ -10,15 +10,22 @@ import {
   Button,
   Divider,
   Stack,
-  Title,
   Anchor,
   Box,
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
+import { useMutation } from '@tanstack/react-query'
 
+import postLogin from '../../../services/api/models/auth/AuthApi'
 import { inputsStyles, passwordStyles } from '../../../utils/AuthStyles'
 
+interface LoginFormValues {
+  email: string
+  password: string
+}
+
 const LoginForm = () => {
+  const loginMutation = useMutation(postLogin)
   const form = useForm({
     initialValues: {
       email: '',
@@ -29,30 +36,26 @@ const LoginForm = () => {
       email: val =>
         /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(val) ? null : 'Invalid email',
       password: val =>
-        val.length <= 6
-          ? 'Password should include at least 6 characters'
-          : null,
+        val.length >= 6
+          ? null
+          : 'Password should include at least 6 characters',
     },
   })
 
+  const handleSubmit = (formValues: LoginFormValues) => {
+    loginMutation.mutate(formValues, {
+      onSuccess: response => (location.href = '/usersList'),
+    })
+  }
   return (
     <Box sx={{ width: 369 }}>
-      <Group mb="md" mt="md" position="center">
-        <Text color="dimmed" sx={{ cursor: 'pointer' }}>
-          <FontAwesomeIcon size="xl" icon={faGoogle} />
-        </Text>
-        <Text color="dimmed" sx={{ cursor: 'pointer' }}>
-          <FontAwesomeIcon size="xl" icon={faFacebook} />
-        </Text>
-      </Group>
+      <Text color="dimmed" sx={{ cursor: 'pointer', textAlign: 'center' }}>
+        <FontAwesomeIcon size="xl" icon={faGoogle} />
+      </Text>
 
       <Divider label="Or continue with email" labelPosition="center" my="lg" />
 
-      <form
-        onSubmit={form.onSubmit(() => {
-          console.log(form.values)
-        })}
-      >
+      <form onSubmit={form.onSubmit(values => handleSubmit(values))}>
         <Stack>
           <TextInput
             size="lg"
