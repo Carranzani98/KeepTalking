@@ -22,11 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//yo soy rest
-Route::post('/register', [UserController::class, 'store']);
+    //REST
+    Route::post('/register', [UserController::class, 'store']);
 
-Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/languages', [LanguageController::class, 'index']);
+    Route::get('/languages', [LanguageController::class, 'index']);
 
-Route::get('/countries', [CountryController::class, 'index']);
+    Route::get('/countries', [CountryController::class, 'index']);
