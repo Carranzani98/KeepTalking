@@ -17,7 +17,7 @@ class AuthController extends Controller
         $token = Auth::attempt($validatedData);
 
         if(!$token){
-            return response()->json(['Bad credentials'], 401);
+            return response()->json(["meta"=> ["result" => "KO"]], 401);
         }
 
         return response()->json([

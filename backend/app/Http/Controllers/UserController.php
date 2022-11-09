@@ -44,6 +44,6 @@ class UserController extends Controller
     $user->languages()->attach($request->get('languageCodes'));
     $user->languagesToLearn()->attach($request->get('toLearnLanguageCodes'));
 
-    return response()->json(['Registration successfully completed']);
+    return response()->json(['meta' => ['result' =>'OK']]);
   }
 }
