@@ -19,7 +19,7 @@ const Footer = () => {
   ))
 
   return (
-    <MantineFooter height={30} p="xs" sx={{ textAlign: 'center' }}>
+    <MantineFooter height={50} p="xs" sx={{ textAlign: 'center' }}>
       <Text size="xs" color="dimmed">
         Copyright © 2022 Isabella Carranzani Borot, TFM.
       </Text>

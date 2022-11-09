@@ -1,20 +1,49 @@
 import React from 'react'
 
-import { Anchor, Group, Header as MantineHeader, Image } from '@mantine/core'
+import {
+  Anchor,
+  Button,
+  Group,
+  Header as MantineHeader,
+  Image,
+} from '@mantine/core'
 
-const Header = ({ view }: { view?: string }) => {
+const Header = () => {
+  const view = location.pathname
   return (
-    <MantineHeader height={77} sx={{ borderBottom: 'none' }}>
+    <MantineHeader height={66} sx={{ borderBottom: 'none' }} p="sm">
       <Group position="apart">
         <Anchor href="/">
           <Image
-            width={252}
+            width={200}
             src="images/logo.png"
             alt="KeepTalking Logo"
             withPlaceholder
           />
         </Anchor>
-        {view === 'landingPage' && <></>}
+        {view === '/' && (
+          <Group pr="xl">
+            <Button
+              color="red.8"
+              radius="xl"
+              size="xs"
+              variant="light"
+              component="a"
+              href="/register"
+            >
+              Register
+            </Button>
+            <Button
+              color="red.7"
+              radius="xl"
+              size="xs"
+              component="a"
+              href="/login"
+            >
+              Login
+            </Button>
+          </Group>
+        )}
       </Group>
     </MantineHeader>
   )

@@ -3,6 +3,9 @@ import React from 'react'
 import { Center, Loader } from '@mantine/core'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
+import LandingPage from './LandingPage/LandingPage'
+import UsersList from './UsersList/UsersList'
+
 const Register = React.lazy(() => import('./Register/Register'))
 const Login = React.lazy(() => import('./Login/Login'))
 
@@ -10,7 +13,7 @@ const RoutesIndex = () => {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <div>Landing page</div>,
+      element: <LandingPage />,
     },
     {
       path: '/Login',
@@ -19,6 +22,10 @@ const RoutesIndex = () => {
     {
       path: '/Register',
       element: <Register />,
+    },
+    {
+      path: '/UsersList',
+      element: <UsersList />,
     },
   ])
 
