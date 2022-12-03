@@ -4,7 +4,7 @@ import { Center, Loader } from '@mantine/core'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import LandingPage from './LandingPage/LandingPage'
-import UsersList from './UsersList/UsersList'
+import MainPage from './MainPage/MainPage'
 
 const Register = React.lazy(() => import('./Register/Register'))
 const Login = React.lazy(() => import('./Login/Login'))
@@ -24,8 +24,8 @@ const RoutesIndex = () => {
       element: <Register />,
     },
     {
-      path: '/UsersList',
-      element: <UsersList />,
+      path: '/MainPage',
+      element: <MainPage />,
     },
   ])
 

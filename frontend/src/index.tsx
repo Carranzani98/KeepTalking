@@ -13,11 +13,7 @@ if (rootElement) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <React.StrictMode>
-      <AppShell
-        header={<Header />}
-        footer={<Footer />}
-        styles={{ main: { minHeight: 'auto' } }}
-      >
+      <AppShell header={<Header />} footer={<Footer />}>
         <App />
       </AppShell>
     </React.StrictMode>

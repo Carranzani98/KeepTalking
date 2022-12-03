@@ -11,11 +11,19 @@ import {
 const Header = () => {
   const view = location.pathname
   return (
-    <MantineHeader height={66} sx={{ borderBottom: 'none' }} p="sm">
+    <MantineHeader
+      height={{ base: 60 }}
+      sx={{ borderBottom: 'none' }}
+      p="sm"
+      pb="xs"
+    >
       <Group position="apart">
-        <Anchor href="/">
+        <Anchor
+          href={view === '/login' || view === '/register' ? '/' : '/MainPage'}
+        >
           <Image
             width={200}
+            height={55}
             src="images/logo.png"
             alt="KeepTalking Logo"
             withPlaceholder
@@ -25,22 +33,22 @@ const Header = () => {
           <Group pr="xl">
             <Button
               color="red.8"
-              radius="xl"
+              radius="sm"
               size="xs"
               variant="light"
               component="a"
-              href="/register"
+              href="/login"
             >
-              Register
+              Sign in
             </Button>
             <Button
               color="red.7"
-              radius="xl"
+              radius="sm"
               size="xs"
               component="a"
-              href="/login"
+              href="/register"
             >
-              Login
+              Sign up
             </Button>
           </Group>
         )}

@@ -1,12 +1,11 @@
 import React from 'react'
 
-import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   TextInput,
   PasswordInput,
   Text,
-  Group,
   Button,
   Divider,
   Stack,
@@ -44,7 +43,7 @@ const LoginForm = () => {
 
   const handleSubmit = (formValues: LoginFormValues) => {
     loginMutation.mutate(formValues, {
-      onSuccess: response => (location.href = '/usersList'),
+      onSuccess: () => (location.href = '/MainPage'),
     })
   }
   return (
