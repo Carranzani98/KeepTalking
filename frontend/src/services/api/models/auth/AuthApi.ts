@@ -1,22 +1,8 @@
-import axios, { AxiosRequestConfig } from 'axios'
-
 import LoginResponse from '../../types/AuthResponse'
-import { CountriesResponse } from '../../types/CountriesResponse'
-import { LanguagesResponse } from '../../types/LanguagesResponse'
 import PostResponse from '../../types/PostResponse'
+import Response from '../../types/Response'
 import { RegisterFormValues } from '../../types/User'
-
-const apiClient = (config?: AxiosRequestConfig<any>) =>
-  axios.create({
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8',
-      'Access-Control-Allow-Origin': 'http://localhost:3000',
-      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH',
-    },
-    baseURL: `${location.protocol}//${location.hostname}:8000`,
-    withCredentials: true,
-    ...config,
-  })
+import apiClient from '../api/ApiClient'
 
 const postLogin = async ({
   email,
@@ -56,14 +42,8 @@ export const postRegister = async ({
   })
   return data
 }
-
-export const getCountries = async () => {
-  const { data } = await apiClient().get<CountriesResponse>('/api/countries')
-  return data
-}
-
-export const getLanguages = async () => {
-  const { data } = await apiClient().get<LanguagesResponse>('/api/languages')
+export const postLogout = async () => {
+  const { data } = await apiClient().post<Response>('/api/logout')
   return data
 }
 

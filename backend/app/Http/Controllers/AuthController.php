@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login']]);
+    }
+
     public function login(Request $request)
     {
         $validatedData = $request->validate( [
@@ -19,7 +24,7 @@ class AuthController extends Controller
         if(!$token){
             return response()->json(["meta"=> ["result" => "KO"]], 401);
         }
-
+        $user = Auth::user();
         return response()->json([
             'accessToken' => $token,
             'tokenType' => "bearer",
@@ -27,4 +32,11 @@ class AuthController extends Controller
             'user' => Auth::user() 
         ]);
     }
+
+    public function logout()
+    {
+        Auth::logout();
+        return response()->json(["meta"=> ["result" => "OK"]], 200);
+    }
+
 }

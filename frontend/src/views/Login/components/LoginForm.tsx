@@ -13,6 +13,7 @@ import {
   Box,
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
+import { useSessionStorage } from '@mantine/hooks'
 import { useMutation } from '@tanstack/react-query'
 
 import postLogin from '../../../services/api/models/auth/AuthApi'
@@ -25,6 +26,10 @@ interface LoginFormValues {
 
 const LoginForm = () => {
   const loginMutation = useMutation(postLogin)
+  const [_, setToken] = useSessionStorage<string>({
+    key: 'token',
+  })
+
   const form = useForm({
     initialValues: {
       email: '',
@@ -43,7 +48,10 @@ const LoginForm = () => {
 
   const handleSubmit = (formValues: LoginFormValues) => {
     loginMutation.mutate(formValues, {
-      onSuccess: () => (location.href = '/MainPage'),
+      onSuccess: response => {
+        setToken(response.accessToken)
+        location.href = '/MainPage'
+      },
     })
   }
   return (
