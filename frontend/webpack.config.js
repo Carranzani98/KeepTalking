@@ -39,8 +39,8 @@ module.exports = () => {
     },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src/'),
-        '@public': path.resolve(__dirname, './public/'),
+        '@/*': path.resolve(__dirname, 'src/'),
+        '@public/*': path.resolve(__dirname, 'public/'),
       },
       extensions: ['.tsx', '.ts'],
     },
