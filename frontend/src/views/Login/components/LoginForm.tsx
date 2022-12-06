@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -103,6 +103,7 @@ const LoginForm = () => {
           mt="xl"
           type="submit"
           fullWidth
+          loading={loginMutation.isLoading}
           color="red.8"
           sx={{
             filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',

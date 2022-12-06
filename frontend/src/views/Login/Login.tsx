@@ -7,12 +7,12 @@ import LoginForm from './components/LoginForm'
 
 const Login = () => {
   return (
-    <Box px="lg" pt="12" pb={0}>
+    <Box px="lg" pt="12" pb={0} sx={{ height: '100%' }}>
       <Group
         noWrap
         p={20}
-        align="stretch"
-        sx={{ justifyContent: 'space-around' }}
+        align="center"
+        sx={{ justifyContent: 'space-around', height: '100%' }}
       >
         <CommonInitialText
           view="login"

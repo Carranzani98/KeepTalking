@@ -15,17 +15,14 @@ import {
   MultiSelect,
   Textarea,
   Box,
-  SelectItem,
 } from '@mantine/core'
 import { DatePicker } from '@mantine/dates'
 import { useForm } from '@mantine/form'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 
-import {
-  getCountries,
-  getLanguages,
-  postRegister,
-} from '../../../services/api/models/auth/AuthApi'
+import Countries from '../../../components/Countries/Countries'
+import Languages from '../../../components/Languages/Languages'
+import { postRegister } from '../../../services/api/models/auth/AuthApi'
 import { RegisterFormValues } from '../../../services/api/types/User'
 import {
   inputsStyles,
@@ -33,42 +30,11 @@ import {
   multiSelect,
   passwordStyles,
 } from '../../../utils/AuthStyles'
+import { formatDate } from '../../../utils/DateFormat'
 
 const RegisterForm = () => {
   const registerMutation = useMutation(postRegister)
 
-  //Llamar endpoint getCountries de la DB
-  const countries = useQuery({
-    queryKey: ['countries'],
-    queryFn: getCountries,
-  })
-
-  //Llamar endpoint getLanguages de la DB
-  const languages = useQuery({
-    queryKey: ['languages'],
-    queryFn: getLanguages,
-  })
-
-  const getCountriesData = () => {
-    if (countries.data) {
-      return countries.data.data.map(country => ({
-        label: country.country,
-        value: country.code,
-      })) as SelectItem[]
-    } else {
-      return []
-    }
-  }
-  const getLanguagesData = () => {
-    if (languages.data) {
-      return languages.data.data.map(language => ({
-        label: language.language_name,
-        value: language.code,
-      })) as SelectItem[]
-    } else {
-      return []
-    }
-  }
   const form = useForm({
     initialValues: {
       email: '',
@@ -112,19 +78,6 @@ const RegisterForm = () => {
       onSuccess: () => (location.href = '/login'),
       onError: error => alert(error),
     })
-  }
-
-  function padTo2Digits(num: number) {
-    return num.toString().padStart(2, '0')
-  }
-
-  function formatDate(date: Date) {
-    const newDate = [
-      padTo2Digits(date.getMonth() + 1),
-      padTo2Digits(date.getDate()),
-      date.getFullYear(),
-    ].join('/')
-    return newDate
   }
 
   return (
@@ -234,7 +187,7 @@ const RegisterForm = () => {
               required
               placeholder="Country"
               value={form.values.country}
-              data={getCountriesData()}
+              data={Countries()}
               styles={{
                 item: {
                   fontSize: 14,
@@ -252,7 +205,7 @@ const RegisterForm = () => {
               size="lg"
               maxSelectedValues={4}
               required
-              data={getLanguagesData()}
+              data={Languages()}
               placeholder="Languages you speak (max 4)"
               searchable
               clearable
@@ -264,7 +217,7 @@ const RegisterForm = () => {
               styles={multiSelect}
               maxSelectedValues={4}
               required
-              data={getLanguagesData()}
+              data={Languages()}
               placeholder="Languages to learn (max 4)"
               searchable
               clearable
@@ -291,6 +244,7 @@ const RegisterForm = () => {
           type="submit"
           color="red.8"
           fullWidth
+          loading={registerMutation.isLoading}
           sx={{
             filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
             height: 50,
