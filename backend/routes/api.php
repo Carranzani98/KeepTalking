@@ -18,9 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-        
-
-
     //REST
     Route::post('/register', [UserController::class, 'store']);
 
@@ -34,3 +31,4 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/user', [UserController::class, 'index']);
 
+    Route::put('/update', [UserController::class, 'update']);

@@ -13,4 +13,5 @@ class LanguageController extends Controller
 
       return response()->json(["data" => $languages]);
     }
+
 }
