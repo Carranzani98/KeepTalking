@@ -71,7 +71,13 @@ const Header = () => {
           </Group>
         )}
         {sessionStorage.token && (
-          <Group pr="xl" position="apart" sx={{ width: '30%' }}>
+          <Group
+            pr="xl"
+            position="right"
+            noWrap
+            spacing={50}
+            sx={{ width: '30%' }}
+          >
             <Anchor
               size={24}
               fw={view === '/MainPage' ? 500 : 300}
@@ -122,9 +128,7 @@ const Header = () => {
                   variant="filled"
                   size="lg"
                   sx={{ cursor: 'pointer' }}
-                >
-                  TS
-                </Avatar>
+                />
               </Menu.Target>
               <Menu.Dropdown>
                 <Menu.Item

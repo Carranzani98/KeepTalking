@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { faCalendar } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -87,6 +87,7 @@ const ProfileForm = ({ data }: { data: User }) => {
         <Title color="#6B0000" pb="lg">
           Profile
         </Title>
+
         <form
           onSubmit={form.onSubmit(values => {
             handleSubmit(values)
@@ -180,6 +181,7 @@ const ProfileForm = ({ data }: { data: User }) => {
                 error={form.errors.password}
               />
             </Stack>
+
             <Stack>
               <Select
                 size="lg"
