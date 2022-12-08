@@ -15,6 +15,7 @@ import {
   MultiSelect,
   Textarea,
   Box,
+  SelectItem,
 } from '@mantine/core'
 import { DatePicker } from '@mantine/dates'
 import { useForm } from '@mantine/form'
@@ -72,7 +73,18 @@ const RegisterForm = () => {
         val.length === 0 ? 'At least one language must be selected' : null,
     },
   })
+  const languages = Languages()
 
+  const getLanguagesData = () => {
+    if (languages.data) {
+      return languages.data.data.map(language => ({
+        label: language.language_name,
+        value: language.code,
+      })) as SelectItem[]
+    } else {
+      return []
+    }
+  }
   const handleSubmit = (formValues: RegisterFormValues) => {
     registerMutation.mutate(formValues, {
       onSuccess: () => (location.href = '/login'),
@@ -205,7 +217,7 @@ const RegisterForm = () => {
               size="lg"
               maxSelectedValues={4}
               required
-              data={Languages()}
+              data={getLanguagesData()}
               placeholder="Languages you speak (max 4)"
               searchable
               clearable
@@ -217,7 +229,7 @@ const RegisterForm = () => {
               styles={multiSelect}
               maxSelectedValues={4}
               required
-              data={Languages()}
+              data={getLanguagesData()}
               placeholder="Languages to learn (max 4)"
               searchable
               clearable

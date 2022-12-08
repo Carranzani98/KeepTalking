@@ -13,6 +13,7 @@ import {
   Container,
   Title,
   PasswordInput,
+  SelectItem,
 } from '@mantine/core'
 import { DatePicker } from '@mantine/dates'
 import { useForm } from '@mantine/form'
@@ -34,6 +35,19 @@ import { formatDate } from '../../../utils/DateFormat'
 const ProfileForm = ({ data }: { data: User }) => {
   const queryClient = useQueryClient()
   const update = useMutation(updateProfile)
+
+  const languages = Languages()
+
+  const getLanguagesData = () => {
+    if (languages.data) {
+      return languages.data.data.map(language => ({
+        label: language.language_name,
+        value: language.code,
+      })) as SelectItem[]
+    } else {
+      return []
+    }
+  }
 
   const handleSubmit = (formValues: any) => {
     update.mutate(formValues, {
@@ -208,7 +222,7 @@ const ProfileForm = ({ data }: { data: User }) => {
                 size="lg"
                 maxSelectedValues={4}
                 required
-                data={Languages()}
+                data={getLanguagesData()}
                 placeholder="Languages you speak (max 4)"
                 searchable
                 clearable
@@ -220,7 +234,7 @@ const ProfileForm = ({ data }: { data: User }) => {
                 styles={multiSelect}
                 maxSelectedValues={4}
                 required
-                data={Languages()}
+                data={getLanguagesData()}
                 placeholder="Languages to learn (max 4)"
                 searchable
                 clearable
