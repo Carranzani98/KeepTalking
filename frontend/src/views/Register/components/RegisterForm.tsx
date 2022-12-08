@@ -232,6 +232,7 @@ const RegisterForm = () => {
                 ...{ input: { ...inputsStyles.input, height: 116 } },
               }}
               placeholder="Description"
+              required
               onChange={event =>
                 form.setFieldValue('description', event.target.value)
               }

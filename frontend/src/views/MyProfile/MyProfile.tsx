@@ -1,16 +1,9 @@
 import React from 'react'
 
 import { Loader, Center, Title } from '@mantine/core'
-import { useQuery } from '@tanstack/react-query'
 
-import getUser from '../../services/api/models/user/UserApi'
+import GetUserData from '../../utils/GetUserData'
 import ProfileForm from './components/ProfileForm'
-
-const GetUserData = () =>
-  useQuery({
-    queryKey: ['user'],
-    queryFn: getUser,
-  })
 
 const MyProfile = () => {
   //Llamar endpoint getUser de la DB
