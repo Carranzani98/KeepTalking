@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Loader, Center, Title } from '@mantine/core'
 
-import GetUserData from '../../utils/GetUserData'
+import GetUserData from '../../components/GetUserData/GetUserData'
 import ProfileForm from './components/ProfileForm'
 
 const MyProfile = () => {
