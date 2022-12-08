@@ -41,6 +41,7 @@ export const multiSelect = {
   value: {
     fontSize: 13,
     fontWeight: 400,
+    borderRadius: 50,
     backgroundColor: mainAuthColor,
     color: white,
     paddingLeft: 10,
