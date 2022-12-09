@@ -14,8 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('language_to_learn_users', function (Blueprint $table) {
-            $table->integer('user_id');
-            $table->string('language_code');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('language_id');
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
         });
     }
 

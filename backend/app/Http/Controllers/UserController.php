@@ -26,8 +26,8 @@ class UserController extends Controller
         'email' => 'required|string|email|max:100|unique:users',
         'password' => 'required|string|min:6',
         'description' => 'required|string',
-        'languageCodes' => 'required|array|max:4',
-        'toLearnLanguageCodes' => 'required|array|max:4'
+        'languagesToTeach' => 'required|array|max:4',
+        'languagesToLearn' => 'required|array|max:4'
     ]);
 
     $user = new User();
@@ -41,8 +41,8 @@ class UserController extends Controller
     
     $user->save();
 
-    $user->languages()->attach($request->get('languageCodes'));
-    $user->languagesToLearn()->attach($request->get('toLearnLanguageCodes'));
+    $user->languages()->attach($request->get('languagesToTeach'));
+    $user->languagesToLearn()->attach($request->get('languagesToLearn'));
 
     
 
@@ -51,20 +51,9 @@ class UserController extends Controller
   
   public function index(Request $request)
   {
-
-    $user = Auth::user();
-    $languagesArray = array();
-    $languagesToLearn = array();
-    foreach (LanguageUser::get()->where('user_id',Auth::id()) as $key => $value) {
-        array_push($languagesArray,$value['language_code']);
-    }
-    
-    foreach (LanguageToLearnUser::get()->where('user_id',Auth::id()) as $key => $value) {
-      array_push($languagesToLearn,$value['language_code']);
-    }
-
-    $user->languageCodes = $languagesArray;
-    $user->toLearnLanguageCodes = $languagesToLearn;
+    $user = User::find(Auth::id());
+    $user->languagesToTeach;
+    $user->languagesToLearn;
     return response()->json(["data" => $user]);
   }
 
@@ -76,8 +65,8 @@ class UserController extends Controller
       'country' => 'required|string',
       'birthday' => 'required|date|date_format:m/d/Y',
       'description' => 'required|string',
-      'languageCodes' => 'required|array|max:4',
-      'toLearnLanguageCodes' => 'required|array|max:4'
+      'languagesToTeach' => 'required|array|max:4',
+      'languagesToLean' => 'required|array|max:4'
     ]);
 
     $user = User::find(Auth::id());
@@ -91,11 +80,19 @@ class UserController extends Controller
     $user->country = $request->get('country');
     $user->birthday = $request->get('birthday');
     $user->description = $request->get('description');
-    $user->languages()->sync($request->get('languageCodes'));
-    $user->languagesToLearn()->sync($request->get('toLearnLanguageCodes'));
+    $user->languages()->sync($request->get('languagesToTeach'));
+    $user->languagesToLearn()->sync($request->get('languagesToLean'));
 
     $user->save();
 
     return response()->json(['meta' => ['result' =>'OK']]);
   }
+
+  // public function matchingUSers(Request $request)
+  // {
+  //   $user = Auth::user()
+  //   $users = User::all()
+
+  //   return response()->json(["data" => $users]);
+  // }
 }

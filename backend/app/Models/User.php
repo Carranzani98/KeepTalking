@@ -67,15 +67,14 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function languages()
+    public function languagesToTeach()
     {
-        return $this->belongsToMany(Language::class, 'language_users', 'user_id', 'language_code');
-
+        return $this->belongsToMany(Language::class, 'language_users', 'user_id', 'language_id');
     }
 
     public function languagesToLearn()
     {
-        return $this->belongsToMany(Language::class, 'language_to_learn_users', 'user_id', 'language_code');
+        return $this->belongsToMany(Language::class, 'language_to_learn_users', 'user_id', 'language_id');
 
     }
 
