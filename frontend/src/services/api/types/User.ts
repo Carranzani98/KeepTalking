@@ -1,3 +1,5 @@
+import { Language } from './LanguagesResponse'
+
 interface User {
   id?: number
   name: string
@@ -6,8 +8,8 @@ interface User {
   country: string
   birthday: Date | string
   description: string
-  languageCodes: string[]
-  toLearnLanguageCodes: string[]
+  languages_to_teach: Language[]
+  languages_to_learn: Language[]
 }
 
 export interface RegisterFormValues {
@@ -18,8 +20,8 @@ export interface RegisterFormValues {
   country: string
   password: string
   confirmPassword: string
-  languageCodes: string[]
-  toLearnLanguageCodes: string[]
+  languages_to_teach: string[]
+  languages_to_learn: string[]
   description: string
 }
 

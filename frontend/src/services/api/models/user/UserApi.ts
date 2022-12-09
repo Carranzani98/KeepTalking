@@ -26,8 +26,8 @@ export const updateProfile = async ({
   birthday,
   country,
   password,
-  languageCodes,
-  toLearnLanguageCodes,
+  languages_to_learn,
+  languages_to_teach,
   description,
 }: RegisterFormValues) => {
   const { data } = await apiClient().put<PostResponse>('/api/update', {
@@ -36,8 +36,8 @@ export const updateProfile = async ({
     birthday,
     country,
     description,
-    languageCodes,
-    toLearnLanguageCodes,
+    languages_to_teach,
+    languages_to_learn,
     email,
     password,
   })

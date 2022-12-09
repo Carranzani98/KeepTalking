@@ -42,7 +42,7 @@ const ProfileForm = ({ data }: { data: User }) => {
     if (languages.data) {
       return languages.data.data.map(language => ({
         label: language.language_name,
-        value: language.code,
+        value: language.id,
       })) as SelectItem[]
     } else {
       return []
@@ -76,8 +76,8 @@ const ProfileForm = ({ data }: { data: User }) => {
       password: '',
       confirmPassword: '',
       country: data.country,
-      languageCodes: data.languageCodes,
-      toLearnLanguageCodes: data.toLearnLanguageCodes,
+      languages_to_teach: data.languages_to_teach.map(language => language.id),
+      languages_to_learn: data.languages_to_teach.map(language => language.id),
       description: data.description,
     },
 
@@ -88,9 +88,9 @@ const ProfileForm = ({ data }: { data: User }) => {
         val.length < 2 ? 'Name must have at least 2 characters' : null,
       confirmPassword: (val, values) =>
         val !== values.password ? 'Passwords did not match' : null,
-      languageCodes: val =>
+      languages_to_teach: val =>
         val.length === 0 ? 'At least one language must be selected' : null,
-      toLearnLanguageCodes: val =>
+      languages_to_learn: val =>
         val.length === 0 ? 'At least one language must be selected' : null,
     },
   })
@@ -226,7 +226,7 @@ const ProfileForm = ({ data }: { data: User }) => {
                 placeholder="Languages you speak (max 4)"
                 searchable
                 clearable
-                value={form.values.languageCodes}
+                value={form.values.languages_to_teach}
                 onChange={value => form.setFieldValue('languageCodes', value)}
               />
               <MultiSelect
@@ -238,7 +238,7 @@ const ProfileForm = ({ data }: { data: User }) => {
                 placeholder="Languages to learn (max 4)"
                 searchable
                 clearable
-                value={form.values.toLearnLanguageCodes}
+                value={form.values.languages_to_learn}
                 onChange={value =>
                   form.setFieldValue('toLearnLanguageCodes', value)
                 }

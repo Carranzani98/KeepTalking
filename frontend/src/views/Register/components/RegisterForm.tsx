@@ -45,8 +45,8 @@ const RegisterForm = () => {
       country: '',
       password: '',
       confirmPassword: '',
-      languageCodes: [''],
-      toLearnLanguageCodes: [''],
+      languages_to_teach: [''],
+      languages_to_learn: [''],
       description: '',
     },
 
@@ -60,16 +60,16 @@ const RegisterForm = () => {
         val.length < 2 ? 'Name must have at least 2 characters' : null,
 
       password: val =>
-        val.length <= 6
+        val.length >= 6
           ? null
           : 'Password should include at least 6 characters',
       confirmPassword: (val, values) =>
         val !== values.password ? 'Passwords did not match' : null,
 
-      languageCodes: val =>
+      languages_to_teach: val =>
         val.length === 0 ? 'At least one language must be selected' : null,
 
-      toLearnLanguageCodes: val =>
+      languages_to_learn: val =>
         val.length === 0 ? 'At least one language must be selected' : null,
     },
   })
@@ -79,7 +79,7 @@ const RegisterForm = () => {
     if (languages.data) {
       return languages.data.data.map(language => ({
         label: language.language_name,
-        value: language.code,
+        value: language.id,
       })) as SelectItem[]
     } else {
       return []
@@ -221,8 +221,10 @@ const RegisterForm = () => {
               placeholder="Languages you speak (max 4)"
               searchable
               clearable
-              value={form.values.languageCodes}
-              onChange={value => form.setFieldValue('languageCodes', value)}
+              value={form.values.languages_to_teach}
+              onChange={value =>
+                form.setFieldValue('languages_to_teach', value)
+              }
             />
             <MultiSelect
               size="lg"
@@ -233,8 +235,9 @@ const RegisterForm = () => {
               placeholder="Languages to learn (max 4)"
               searchable
               clearable
+              value={form.values.languages_to_learn}
               onChange={value =>
-                form.setFieldValue('toLearnLanguageCodes', value)
+                form.setFieldValue('languages_to_learn', value)
               }
             />
 

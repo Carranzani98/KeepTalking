@@ -25,8 +25,8 @@ export const postRegister = async ({
   birthday,
   country,
   password,
-  languageCodes,
-  toLearnLanguageCodes,
+  languages_to_learn,
+  languages_to_teach,
   description,
 }: RegisterFormValues) => {
   const { data } = await apiClient().post<PostResponse>('/api/register', {
@@ -35,8 +35,8 @@ export const postRegister = async ({
     birthday,
     country,
     description,
-    languageCodes,
-    toLearnLanguageCodes,
+    languages_to_learn,
+    languages_to_teach,
     email,
     password,
   })
