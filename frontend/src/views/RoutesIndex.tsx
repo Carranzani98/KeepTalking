@@ -53,7 +53,7 @@ const RoutesIndex = () => {
       <React.Suspense
         fallback={
           <Center style={{ width: '100%', height: 'calc(100vh  - 55px)' }}>
-            <Loader color="gray" />
+            <Loader color="gray" size="xl" />
           </Center>
         }
       >

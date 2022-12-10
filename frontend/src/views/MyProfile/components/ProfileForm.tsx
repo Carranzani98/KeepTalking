@@ -77,7 +77,7 @@ const ProfileForm = ({ data }: { data: User }) => {
       confirmPassword: '',
       country: data.country,
       languages_to_teach: data.languages_to_teach.map(language => language.id),
-      languages_to_learn: data.languages_to_teach.map(language => language.id),
+      languages_to_learn: data.languages_to_learn.map(language => language.id),
       description: data.description,
     },
 
@@ -227,7 +227,9 @@ const ProfileForm = ({ data }: { data: User }) => {
                 searchable
                 clearable
                 value={form.values.languages_to_teach}
-                onChange={value => form.setFieldValue('languageCodes', value)}
+                onChange={value =>
+                  form.setFieldValue('languages_to_teach', value)
+                }
               />
               <MultiSelect
                 size="lg"
@@ -240,7 +242,7 @@ const ProfileForm = ({ data }: { data: User }) => {
                 clearable
                 value={form.values.languages_to_learn}
                 onChange={value =>
-                  form.setFieldValue('toLearnLanguageCodes', value)
+                  form.setFieldValue('languages_to_learn', value)
                 }
               />
 
@@ -261,6 +263,7 @@ const ProfileForm = ({ data }: { data: User }) => {
             mt="xl"
             type="submit"
             color="red.8"
+            loading={update.isLoading}
             sx={{
               float: 'right',
               filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
