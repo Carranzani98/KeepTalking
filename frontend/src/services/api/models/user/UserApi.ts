@@ -1,7 +1,11 @@
 import { CountriesResponse } from '../../types/CountriesResponse'
 import { LanguagesResponse } from '../../types/LanguagesResponse'
 import PostResponse from '../../types/PostResponse'
-import { RegisterFormValues, UserResponse } from '../../types/User'
+import {
+  RegisterFormValues,
+  UserResponse,
+  UsersResponse,
+} from '../../types/User'
 import apiClient from '../api/ApiClient'
 
 const getUser = async () => {
@@ -44,4 +48,8 @@ export const updateProfile = async ({
   return data
 }
 
+export const matchingUsers = async () => {
+  const { data } = await apiClient().get<UsersResponse>('/api/matching_users')
+  return data
+}
 export default getUser

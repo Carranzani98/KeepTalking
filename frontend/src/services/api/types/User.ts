@@ -29,4 +29,8 @@ export interface UserResponse extends Response {
   data: User
 }
 
+export interface UsersResponse extends Response {
+  data: User[]
+}
+
 export default User
