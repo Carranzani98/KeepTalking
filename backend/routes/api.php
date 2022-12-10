@@ -32,3 +32,5 @@ use Illuminate\Support\Facades\Route;
     Route::get('/user', [UserController::class, 'index']);
 
     Route::put('/update', [UserController::class, 'update']);
+
+    Route::get('/matching_users', [UserController::class, 'matchingUsers']);
