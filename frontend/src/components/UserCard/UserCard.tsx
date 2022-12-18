@@ -1,8 +1,10 @@
 import React from 'react'
 
 import { Button, Card, Group, Text } from '@mantine/core'
+import { generatePath } from 'react-router-dom'
 
 interface UserCardProps {
+  userId: number
   name: string
   languagesUser: string[]
   languagesToLearn: string[]
@@ -10,6 +12,7 @@ interface UserCardProps {
 }
 
 export const UserCard = ({
+  userId,
   name,
   languagesUser,
   description,
@@ -63,6 +66,11 @@ export const UserCard = ({
               backgroundColor: '#B05454',
               '&:hover': { backgroundColor: '#973C3C' },
             }}
+            onClick={() =>
+              (location.href = generatePath('/ChatPanel/:id', {
+                id: userId.toString(),
+              }))
+            }
           >
             Initiate chat
           </Button>

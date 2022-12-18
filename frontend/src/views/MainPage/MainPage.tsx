@@ -110,6 +110,7 @@ const MainPage = () => {
   const usersCards = filteredData?.map(user => (
     <UserCard
       key={user.id}
+      userId={user.id}
       name={user.name + ' ' + user.surname}
       description={user.description}
       languagesUser={user.languages_to_teach.map(lang => lang.language_name)}

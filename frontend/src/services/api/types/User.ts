@@ -1,7 +1,7 @@
 import { Language } from './LanguagesResponse'
 
 interface User {
-  id?: number
+  id: number
   name: string
   surname: string
   email: string
