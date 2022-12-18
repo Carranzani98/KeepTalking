@@ -3,6 +3,8 @@ import React from 'react'
 import { Center, Loader } from '@mantine/core'
 import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom'
 
+import ChatPanel from './ChatPanel/ChatPanel'
+import Chats from './Chats/Chats'
 import LandingPage from './LandingPage/LandingPage'
 import MainPage from './MainPage/MainPage'
 import MyProfile from './MyProfile/MyProfile'
@@ -45,6 +47,14 @@ const RoutesIndex = () => {
       {
         path: '/MyProfile',
         element: <MyProfile />,
+      },
+      {
+        path: '/Chats',
+        element: <Chats />,
+      },
+      {
+        path: '/ChatPanel/:id',
+        element: <ChatPanel />,
       },
     ])
   }
