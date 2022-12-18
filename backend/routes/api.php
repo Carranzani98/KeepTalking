@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\UserController;
@@ -34,3 +35,13 @@ use Illuminate\Support\Facades\Route;
     Route::put('/update', [UserController::class, 'update']);
 
     Route::get('/matching_users', [UserController::class, 'matchingUsers']);
+
+    Route::get('/chats', [ChatController::class, 'index']);
+
+    Route::delete('/delete_all', [ChatController::class, 'deleteAllChats']);
+
+    Route::post('/delete_chat', [ChatController::class, 'deleteChat']);
+
+    Route::post('/get_messages', [ChatController::class, 'fetchMessages']);
+
+    Route::post('/messages', [ChatController::class, 'sendMessage']);
