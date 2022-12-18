@@ -14,12 +14,10 @@ const rootElement = document.getElementById('root')
 if (rootElement) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
-    <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <AppShell header={<Header />} footer={<Footer />}>
-          <App />
-        </AppShell>
-      </QueryClientProvider>
-    </React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <AppShell header={<Header />} footer={<Footer />}>
+        <App />
+      </AppShell>
+    </QueryClientProvider>
   )
 }

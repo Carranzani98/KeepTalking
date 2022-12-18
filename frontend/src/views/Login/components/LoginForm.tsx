@@ -13,7 +13,7 @@ import {
   Box,
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { useSessionStorage } from '@mantine/hooks'
+import { useLocalStorage, useSessionStorage } from '@mantine/hooks'
 import { useMutation } from '@tanstack/react-query'
 
 import postLogin from '../../../services/api/models/auth/AuthApi'
