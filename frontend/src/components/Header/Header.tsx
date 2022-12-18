@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { createAvatar } from '@dicebear/avatars'
+import * as style from '@dicebear/avatars-identicon-sprites'
 import { faSignOut, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -42,7 +44,7 @@ const Header = () => {
           <Image
             width={200}
             height={55}
-            src="images/logo.png"
+            src="/images/logo.png"
             alt="KeepTalking Logo"
             withPlaceholder
           />
@@ -123,11 +125,13 @@ const Header = () => {
             <Menu position="bottom-end" trigger="hover">
               <Menu.Target>
                 <Avatar
+                  src={createAvatar(style, {
+                    seed: token,
+                    dataUri: true,
+                  })}
                   radius="xl"
-                  color="red.2"
-                  variant="filled"
                   size="lg"
-                  sx={{ cursor: 'pointer' }}
+                  sx={{ cursor: 'pointer', border: '1px solid lightgray' }}
                 />
               </Menu.Target>
               <Menu.Dropdown>

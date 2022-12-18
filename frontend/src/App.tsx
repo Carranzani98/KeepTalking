@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { MantineProvider } from '@mantine/core'
+import { ModalsProvider } from '@mantine/modals'
 import { NotificationsProvider } from '@mantine/notifications'
 
 import RoutesIndex from './views/RoutesIndex'
@@ -8,9 +9,11 @@ import RoutesIndex from './views/RoutesIndex'
 const App = () => {
   return (
     <MantineProvider>
-      <NotificationsProvider>
-        <RoutesIndex />
-      </NotificationsProvider>
+      <ModalsProvider>
+        <NotificationsProvider>
+          <RoutesIndex />
+        </NotificationsProvider>
+      </ModalsProvider>
     </MantineProvider>
   )
 }
