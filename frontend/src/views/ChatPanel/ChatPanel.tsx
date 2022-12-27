@@ -110,7 +110,11 @@ const ChatPanel = () => {
         <Paper
           shadow="xs"
           p="md"
-          sx={{ width: '50%', height: '100%', minWidth: 300 }}
+          sx={{
+            width: '50%',
+            height: '95%',
+            minWidth: 300,
+          }}
         >
           <Group>
             <Avatar
@@ -126,10 +130,10 @@ const ChatPanel = () => {
               {receiver ? receiver.name + ' ' + receiver.surname : ''}
             </Text>
           </Group>
-          <Divider mt="lg" />
-          <Stack justify="space-between" sx={{ height: 700 }}>
-            <ScrollArea scrollbarSize={8}>
-              <Stack py="xl">
+          <Divider mt="sm" />
+          <Stack justify="space-between" sx={{ height: 590 }}>
+            <ScrollArea scrollbarSize={8} sx={{ height: 500 }}>
+              <Stack py="lg">
                 {messages.map((info, index) => {
                   return (
                     <Box
