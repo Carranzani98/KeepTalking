@@ -5,6 +5,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CalendarController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -45,3 +46,10 @@ use Illuminate\Support\Facades\Route;
     Route::post('/get_messages', [ChatController::class, 'fetchMessages']);
 
     Route::post('/messages', [ChatController::class, 'sendMessage']);
+
+    Route::get('/meets', [CalendarController::class, 'index']);
+
+    Route::post('/meet', [CalendarController::class, 'createMeet']);
+
+    Route::post('/delete_meet', [CalendarController::class, 'deleteMeet']);
+    
