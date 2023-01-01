@@ -1,7 +1,7 @@
 export interface Meet {
   otherUserId: number
   title: string
-  description: string
+  notes: string
   startTime: Date
   endTime: Date
 }

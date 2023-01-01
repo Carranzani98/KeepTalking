@@ -6,20 +6,20 @@ const postMeet = async ({
   startTime,
   endTime,
   title,
-  description,
+  notes,
 }: {
   otherUserId: number
   startTime: Date
   endTime: Date
   title: string
-  description: string
+  notes: string
 }) => {
   const { data } = await apiClient().post<Response>('/api/meet', {
     otherUserId,
     startTime,
     endTime,
     title,
-    description,
+    notes,
   })
   return data
 }

@@ -34,7 +34,7 @@ const MeetModal = ({
     initialValues: {
       otherUserId: userId,
       title: '',
-      description: '',
+      notes: '',
       startTime: new Date(),
       endTime: new Date(),
     },
@@ -72,10 +72,10 @@ const MeetModal = ({
             variant="filled"
             styles={inputsStyles}
             required
-            placeholder="Meet description"
-            value={form.values.description}
+            placeholder="Meet notes"
+            value={form.values.notes}
             onChange={event =>
-              form.setFieldValue('description', event.currentTarget.value)
+              form.setFieldValue('notes', event.currentTarget.value)
             }
           />
           <DateTimePicker
