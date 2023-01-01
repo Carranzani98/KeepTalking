@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { createAvatar } from '@dicebear/avatars'
 import * as style from '@dicebear/avatars-identicon-sprites'
+import { faCalendar } from '@fortawesome/free-regular-svg-icons'
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons/faPaperPlane'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -18,19 +19,20 @@ import {
   Stack,
   Divider,
   ScrollArea,
+  Anchor,
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useMutation } from '@tanstack/react-query'
 import Pusher from 'pusher-js'
 import { useParams } from 'react-router-dom'
 
-import { Message } from '@/services/api/types/MessageResponse'
-import User from '@/services/api/types/User'
-
 import GetUserData from '../../components/GetUserData/GetUserData'
+import MeetModal from '../../components/MeetModal/MeetModal'
 import getMessages, {
   postMessage,
 } from '../../services/api/models/chat/ChatApi'
+import { Message } from '../../services/api/types/MessageResponse'
+import User from '../../services/api/types/User'
 
 const ChatPanel = () => {
   const { id } = useParams()
@@ -41,6 +43,7 @@ const ChatPanel = () => {
   const [messages, setMessages] = useState<Message[]>([])
   const [receiver, setReceiver] = useState<User | undefined>(undefined)
   const [message, setMessage] = useState<string>('')
+  const [opened, setOpened] = useState<boolean>(false)
   const messagesMutation = useMutation(postMessage)
 
   let chatId = ''
@@ -116,20 +119,32 @@ const ChatPanel = () => {
             minWidth: 300,
           }}
         >
-          <Group>
-            <Avatar
-              src={createAvatar(style, {
-                seed: id,
-                dataUri: true,
-              })}
-              radius="xl"
-              size="lg"
-              sx={{ border: '1px solid lightgray' }}
-            />
-            <Text size={24} color="#2C2C2E">
-              {receiver ? receiver.name + ' ' + receiver.surname : ''}
-            </Text>
+          <Group position="apart">
+            <Group>
+              <Avatar
+                src={createAvatar(style, {
+                  seed: id,
+                  dataUri: true,
+                })}
+                radius="xl"
+                size="lg"
+                sx={{ border: '1px solid lightgray' }}
+              />
+              <Text size={24} color="#2C2C2E">
+                {receiver ? receiver.name + ' ' + receiver.surname : ''}
+              </Text>
+            </Group>
+
+            <Anchor
+              size="xl"
+              sx={{ color: '#B05454' }}
+              underline={false}
+              onClick={() => setOpened(true)}
+            >
+              Add meet <FontAwesomeIcon icon={faCalendar} />
+            </Anchor>
           </Group>
+
           <Divider mt="sm" />
           <Stack justify="space-between" sx={{ height: 590 }}>
             <ScrollArea scrollbarSize={8} sx={{ height: 500 }}>
@@ -215,6 +230,13 @@ const ChatPanel = () => {
           </Stack>
         </Paper>
       </Center>
+      {id && (
+        <MeetModal
+          userId={parseInt(id)}
+          opened={opened}
+          setOpened={setOpened}
+        />
+      )}
     </Container>
   )
 }
