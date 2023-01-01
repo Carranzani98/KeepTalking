@@ -1,19 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { faGoogle } from '@fortawesome/free-brands-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   TextInput,
   PasswordInput,
-  Text,
   Button,
-  Divider,
   Stack,
   Anchor,
   Box,
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { useLocalStorage, useSessionStorage } from '@mantine/hooks'
+import { useSessionStorage } from '@mantine/hooks'
 import { useMutation } from '@tanstack/react-query'
 
 import postLogin from '../../../services/api/models/auth/AuthApi'
@@ -56,12 +52,6 @@ const LoginForm = () => {
   }
   return (
     <Box sx={{ width: 369 }}>
-      <Text color="dimmed" sx={{ cursor: 'pointer', textAlign: 'center' }}>
-        <FontAwesomeIcon size="xl" icon={faGoogle} />
-      </Text>
-
-      <Divider label="Or continue with email" labelPosition="center" my="lg" />
-
       <form onSubmit={form.onSubmit(values => handleSubmit(values))}>
         <Stack>
           <TextInput

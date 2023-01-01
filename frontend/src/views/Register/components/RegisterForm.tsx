@@ -1,15 +1,12 @@
 import React from 'react'
 
-import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faCalendar } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   TextInput,
   PasswordInput,
-  Text,
   Group,
   Button,
-  Divider,
   Stack,
   Select,
   MultiSelect,
@@ -94,12 +91,6 @@ const RegisterForm = () => {
 
   return (
     <Box sx={{ width: 550 }} mr={50}>
-      <Text color="dimmed" sx={{ cursor: 'pointer', textAlign: 'center' }}>
-        <FontAwesomeIcon size="xl" icon={faGoogle} />
-      </Text>
-
-      <Divider label="Or continue with email" labelPosition="center" my="lg" />
-
       <form
         onSubmit={form.onSubmit(values => {
           handleSubmit(values)
