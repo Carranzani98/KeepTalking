@@ -30,6 +30,7 @@ export const passwordStyles = {
     color: mainAuthColor,
   },
 }
+
 export const multiSelect = {
   searchInput: {
     fontSize: 14,
