@@ -90,6 +90,8 @@ class User extends Authenticatable implements JWTSubject
 
     public function meets()
     {
-        return $this->hasMany(Meet::class,'user1_id');
+        $created = $this->hasMany(Meet::class,'user1_id');
+        $addedTo = $this->hasMany(Meet::class,'user2_id');
+        return $created->union($addedTo);
     }
 }

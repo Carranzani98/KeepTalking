@@ -50,6 +50,8 @@ use Illuminate\Support\Facades\Route;
     Route::get('/meets', [CalendarController::class, 'index']);
 
     Route::post('/meet', [CalendarController::class, 'createMeet']);
+    
+    Route::post('/update_meet', [CalendarController::class, 'updateMeet']);
 
     Route::post('/delete_meet', [CalendarController::class, 'deleteMeet']);
     

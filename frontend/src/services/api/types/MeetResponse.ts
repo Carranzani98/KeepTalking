@@ -1,4 +1,5 @@
 export interface Meet {
+  id?: number
   otherUserId: number
   title: string
   notes: string

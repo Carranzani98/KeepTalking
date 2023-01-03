@@ -44,11 +44,19 @@ class CalendarController extends Controller
     return response()->json(['meta' => ['result' =>'OK']]);
   }
 
-  public function deleteMeet(Request $request){
-    $user = User::find(Auth::id());
+  public function updateMeet(Request $request){
+    $meet = Meet::find($request->input('id'));
+    $meet->title = $request->input('title');
+    $meet->notes = $request->input('notes');
+    $meet->startTime = $request->input('startTime');
+    $meet->endTime = $request->input('endTime');
+    $meet->save();
 
-    $user->meets()->where('id', $request->input('id'))->delete();
     return response()->json(['meta' => ['result' =>'OK']]);
+  }
 
+  public function deleteMeet(Request $request){
+    Meet::find($request->input('meetId'))->delete();
+    return response()->json(['meta' => ['result' =>'OK']]);
   }
 }

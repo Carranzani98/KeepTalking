@@ -29,8 +29,8 @@ export const getMeets = async () => {
   return data
 }
 
-export const deleteMeet = async (id: { id: number }) => {
-  const { data } = await apiClient().post<Response>('/api/delete_meet', id)
+export const deleteMeet = async (meetId: { meetId: number }) => {
+  const { data } = await apiClient().post<Response>('/api/delete_meet', meetId)
   return data
 }
 
