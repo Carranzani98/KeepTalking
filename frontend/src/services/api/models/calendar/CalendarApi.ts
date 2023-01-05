@@ -1,4 +1,4 @@
-import { MeetResponse } from '../../types/MeetResponse'
+import { Meet, MeetResponse } from '../../types/MeetResponse'
 import apiClient from '../api/ApiClient'
 
 const postMeet = async ({
@@ -14,7 +14,7 @@ const postMeet = async ({
   title: string
   notes: string
 }) => {
-  const { data } = await apiClient().post<Response>('/api/meet', {
+  const { data } = await apiClient().post<Meet>('/api/meet', {
     otherUserId,
     startTime,
     endTime,
@@ -26,6 +26,32 @@ const postMeet = async ({
 
 export const getMeets = async () => {
   const { data } = await apiClient().get<MeetResponse>('/api/meets')
+  return data
+}
+
+export const editMeet = async ({
+  id,
+  otherUserId,
+  startTime,
+  endTime,
+  title,
+  notes,
+}: {
+  id: number
+  otherUserId: number
+  startTime: Date
+  endTime: Date
+  title: string
+  notes: string
+}) => {
+  const { data } = await apiClient().put<MeetResponse>('/api/update_meet', {
+    id,
+    otherUserId,
+    startTime,
+    endTime,
+    title,
+    notes,
+  })
   return data
 }
 
