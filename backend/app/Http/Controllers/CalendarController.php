@@ -41,7 +41,7 @@ class CalendarController extends Controller
 
     $newMeet->save();
 
-    return response()->json(['meta' => ['result' =>'OK']]);
+    return response()->json($newMeet);
   }
 
   public function updateMeet(Request $request){
