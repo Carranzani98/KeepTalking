@@ -72,7 +72,6 @@ const EditMeetModal = ({
       endTime: eventInfoState.endTime,
     },
   })
-  console.log(eventInfoState, form)
 
   const handleSubmit = (values: Meet) => {
     editMutation.mutate({ ...values, id: eventInfo.id })
