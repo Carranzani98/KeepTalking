@@ -65,7 +65,7 @@ const MainPage = () => {
   const userQuery = GetUserData()
   const languagesQuery = Languages()
   const { data, isLoading } = useQuery({
-    queryKey: ['countries'],
+    queryKey: ['matchingUsers'],
     queryFn: matchingUsers,
   })
 

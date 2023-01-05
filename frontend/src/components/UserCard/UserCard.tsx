@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Button, Card, Group, Text } from '@mantine/core'
 import { generatePath } from 'react-router-dom'
 
-import MeetModal from '../MeetModal/MeetModal'
+import CreateMeetModal from '../CreateMeetModal/CreateMeetModal'
 
 interface UserCardProps {
   userId: number
@@ -90,7 +90,7 @@ export const UserCard = ({
           </Group>
         </Card.Section>
       </Card>
-      <MeetModal userId={userId} opened={opened} setOpened={setOpened} />
+      <CreateMeetModal userId={userId} opened={opened} setOpened={setOpened} />
     </>
   )
 }

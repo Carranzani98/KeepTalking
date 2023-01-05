@@ -26,8 +26,8 @@ import { useMutation } from '@tanstack/react-query'
 import Pusher from 'pusher-js'
 import { useParams } from 'react-router-dom'
 
+import CreateMeetModal from '../../components/CreateMeetModal/CreateMeetModal'
 import GetUserData from '../../components/GetUserData/GetUserData'
-import MeetModal from '../../components/MeetModal/MeetModal'
 import getMessages, {
   postMessage,
 } from '../../services/api/models/chat/ChatApi'
@@ -231,7 +231,7 @@ const ChatPanel = () => {
         </Paper>
       </Center>
       {id && (
-        <MeetModal
+        <CreateMeetModal
           userId={parseInt(id)}
           opened={opened}
           setOpened={setOpened}
