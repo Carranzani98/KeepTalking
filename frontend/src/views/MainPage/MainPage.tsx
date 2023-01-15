@@ -5,6 +5,7 @@ import {
   Flex,
   Group,
   Loader,
+  MediaQuery,
   MultiSelect,
   ScrollArea,
   SelectItem,
@@ -119,75 +120,80 @@ const MainPage = () => {
   ))
 
   return (
-    <Stack>
-      <Flex my="xl" justify="center" gap="xs">
-        <SearchInput
-          onChange={event => setQueryName(event.currentTarget.value)}
-        />
+    <MediaQuery smallerThan="sm" styles={{ gap: 0 }}>
+      <Stack>
+        <MediaQuery smallerThan="sm" styles={{ flexWrap: 'wrap' }}>
+          <Flex my="xl" justify="center" gap="xs">
+            <SearchInput
+              onChange={event => setQueryName(event.currentTarget.value)}
+            />
 
-        <MultiSelect
-          size="md"
-          radius="xl"
-          styles={multiSelectStyles}
-          data={
-            !userQuery.isLoading && !languagesQuery.isLoading
-              ? getLanguages('languages_to_teach')
-              : []
-          }
-          placeholder={
-            !userQuery.isLoading && !languagesQuery.isLoading
-              ? 'Select language to teach'
-              : 'Loading'
-          }
-          icon={
-            userQuery.isLoading || languagesQuery.isLoading ? (
-              <Loader size="xs" color="#BD6A6A" />
-            ) : null
-          }
-          clearable
-          searchable
-          onChange={values => setQueryLanguagesToTeach(values)}
-        />
+            <MultiSelect
+              size="md"
+              radius="xl"
+              styles={multiSelectStyles}
+              data={
+                !userQuery.isLoading && !languagesQuery.isLoading
+                  ? getLanguages('languages_to_teach')
+                  : []
+              }
+              placeholder={
+                !userQuery.isLoading && !languagesQuery.isLoading
+                  ? 'Select language to teach'
+                  : 'Loading'
+              }
+              icon={
+                userQuery.isLoading || languagesQuery.isLoading ? (
+                  <Loader size="xs" color="#BD6A6A" />
+                ) : null
+              }
+              clearable
+              searchable
+              onChange={values => setQueryLanguagesToTeach(values)}
+            />
 
-        <MultiSelect
-          size="md"
-          radius="xl"
-          styles={multiSelectStyles}
-          data={
-            !userQuery.isLoading && !languagesQuery.isLoading
-              ? getLanguages('languages_to_learn')
-              : []
-          }
-          placeholder={
-            !userQuery.isLoading && !languagesQuery.isLoading
-              ? 'Select language to learn'
-              : 'Loading'
-          }
-          icon={
-            userQuery.isLoading || languagesQuery.isLoading ? (
-              <Loader size="xs" color="#BD6A6A" />
-            ) : null
-          }
-          clearable
-          searchable
-          onChange={values => setQueryLanguagesToLearn(values)}
-        />
-      </Flex>
-      <ScrollArea
-        sx={{ height: 'calc(100vh - 96px - 66px - 90px - 24px)' }}
-        scrollbarSize={8}
-      >
-        {usersCards && usersCards.length !== 0 ? (
-          <Group position="center" mt="xl">
-            {usersCards}
-          </Group>
-        ) : (
-          <Text color="dimmed" size="xl" align="center" mt="xl" fw={700}>
-            No results were found
-          </Text>
-        )}
-      </ScrollArea>
-    </Stack>
+            <MultiSelect
+              size="md"
+              radius="xl"
+              styles={multiSelectStyles}
+              data={
+                !userQuery.isLoading && !languagesQuery.isLoading
+                  ? getLanguages('languages_to_learn')
+                  : []
+              }
+              placeholder={
+                !userQuery.isLoading && !languagesQuery.isLoading
+                  ? 'Select language to learn'
+                  : 'Loading'
+              }
+              icon={
+                userQuery.isLoading || languagesQuery.isLoading ? (
+                  <Loader size="xs" color="#BD6A6A" />
+                ) : null
+              }
+              clearable
+              searchable
+              onChange={values => setQueryLanguagesToLearn(values)}
+            />
+          </Flex>
+        </MediaQuery>
+
+        <ScrollArea
+          sx={{ height: 'calc(100vh - 96px - 66px - 90px - 24px)' }}
+          scrollbarSize={8}
+        >
+          {usersCards && usersCards.length !== 0 ? (
+            <Group position="center" mt="xl">
+              {usersCards}
+            </Group>
+          ) : (
+            <Text color="dimmed" size="xl" align="center" mt="xl" fw={700}>
+              No results were found
+            </Text>
+          )}
+        </ScrollArea>
+      </Stack>
+    </MediaQuery>
   )
 }
 

@@ -119,7 +119,14 @@ const ChatPanel = () => {
             minWidth: 300,
           }}
         >
-          <Group position="apart">
+          <Group
+            position="apart"
+            sx={{
+              '@media (max-width: 800px)': {
+                justifyContent: 'space-around',
+              },
+            }}
+          >
             <Group>
               <Avatar
                 src={createAvatar(style, {

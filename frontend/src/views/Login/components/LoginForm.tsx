@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
+  Text,
   TextInput,
   PasswordInput,
   Button,
@@ -21,6 +22,7 @@ interface LoginFormValues {
 }
 
 const LoginForm = () => {
+  const [error, setError] = useState<boolean>(false)
   const loginMutation = useMutation(postLogin)
   const [_, setToken] = useSessionStorage<string>({
     key: 'token',
@@ -48,11 +50,20 @@ const LoginForm = () => {
         setToken(response.accessToken)
         location.href = '/MainPage'
       },
+      onError: () => {
+        setError(true)
+      },
     })
   }
+
   return (
     <Box sx={{ width: 369 }}>
       <form onSubmit={form.onSubmit(values => handleSubmit(values))}>
+        {error && (
+          <Text size="md" color="red" pb="xs">
+            Your email or password is not correct
+          </Text>
+        )}
         <Stack>
           <TextInput
             size="lg"
@@ -61,9 +72,10 @@ const LoginForm = () => {
             required
             placeholder="Enter your email"
             value={form.values.email}
-            onChange={event =>
+            onChange={event => {
+              setError(false)
               form.setFieldValue('email', event.currentTarget.value)
-            }
+            }}
             error={form.errors.email && 'Invalid email'}
           />
 
@@ -77,9 +89,10 @@ const LoginForm = () => {
             required
             placeholder="Enter your password"
             value={form.values.password}
-            onChange={event =>
+            onChange={event => {
+              setError(false)
               form.setFieldValue('password', event.currentTarget.value)
-            }
+            }}
             error={
               form.errors.password &&
               'Password should include at least 6 characters'
@@ -89,6 +102,7 @@ const LoginForm = () => {
             Forgot password?
           </Anchor>
         </Stack>
+
         <Button
           mt="xl"
           type="submit"

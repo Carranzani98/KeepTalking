@@ -12,7 +12,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import { Box, Center, Container, Loader, Text } from '@mantine/core'
-import { useForm } from '@mantine/form'
+import { useMediaQuery } from '@mantine/hooks'
 import { useQuery } from '@tanstack/react-query'
 
 import CreateMeetModal from '../../components/CreateMeetModal/CreateMeetModal'
@@ -30,6 +30,8 @@ const Calendar = () => {
   const [eventInfo, setEventInfo] = useState<Meet | undefined>()
   const [isEdit, setIsEdit] = useState<boolean>(false)
   const [clickInfo, setClickInfo] = useState<EventClickArg>()
+  const matches = useMediaQuery('(max-width: 500px)')
+
   const getAllMeets = useQuery({
     queryKey: ['meets'],
     queryFn: getMeets,
@@ -66,7 +68,7 @@ const Calendar = () => {
     setOpenEdit(false)
     setOpen(true)
   }
-
+  console.log(matches)
   const defineTime = (digit?: number) => {
     if (digit !== undefined && digit < 10) {
       return '0' + digit.toString()
@@ -109,11 +111,11 @@ const Calendar = () => {
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         headerToolbar={{
-          left: 'prev,next today',
+          left: !matches ? 'prev,next today' : 'prev,next',
           center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay',
+          right: !matches ? 'dayGridMonth,timeGridWeek,timeGridDay' : '',
         }}
-        initialView="dayGridMonth"
+        initialView={!matches ? 'dayGridMonth' : 'dayGrid'}
         selectable={true}
         selectMirror={true}
         weekends={true}

@@ -9,7 +9,6 @@ const Register = () => {
   return (
     <Box px="lg" pt="12" pb={0} sx={{ height: '100%' }}>
       <Group
-        noWrap
         align="center"
         sx={{ justifyContent: 'space-around', height: '100%' }}
       >

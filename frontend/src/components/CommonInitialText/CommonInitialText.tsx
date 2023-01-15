@@ -1,6 +1,14 @@
 import React from 'react'
 
-import { Anchor, Box, Title, Text, Stack, Image } from '@mantine/core'
+import {
+  Anchor,
+  Box,
+  Title,
+  Text,
+  Stack,
+  Image,
+  MediaQuery,
+} from '@mantine/core'
 
 interface CommonInitialTextProps {
   view: string
@@ -34,15 +42,17 @@ const CommonInitialText = ({
           </Anchor>
         </Text>
       </Box>
-      <Image
-        mt="xl"
-        src="images/auth-ilustration.png"
-        alt="Girl chatting with her phone"
-        fit="contain"
-        width={450}
-        height={255}
-        withPlaceholder
-      />
+      <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
+        <Image
+          mt="xl"
+          src="images/auth-ilustration.png"
+          alt="Girl chatting with her phone"
+          fit="contain"
+          width={450}
+          height={255}
+          withPlaceholder
+        />
+      </MediaQuery>
     </Stack>
   )
 }

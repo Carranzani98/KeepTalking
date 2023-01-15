@@ -14,6 +14,7 @@ import {
   Title,
   PasswordInput,
   SelectItem,
+  MediaQuery,
 } from '@mantine/core'
 import { DatePicker } from '@mantine/dates'
 import { useForm } from '@mantine/form'
@@ -107,158 +108,173 @@ const ProfileForm = ({ data }: { data: User }) => {
             handleSubmit(values)
           })}
         >
-          <Group grow position="apart" align="flex-start">
-            <Stack>
-              <TextInput
-                size="lg"
-                variant="filled"
-                styles={inputsStyles}
-                disabled
-                value={form.values.email}
-              />
-              <TextInput
-                size="lg"
-                variant="filled"
-                styles={inputsStyles}
-                required
-                placeholder="Name"
-                value={form.values.name}
-                onChange={event =>
-                  form.setFieldValue('name', event.currentTarget.value)
-                }
-                error={form.errors.email && 'Invalid email'}
-              />
-              <TextInput
-                size="lg"
-                variant="filled"
-                styles={inputsStyles}
-                required
-                placeholder="Surname"
-                value={form.values.surname}
-                onChange={event =>
-                  form.setFieldValue('surname', event.currentTarget.value)
-                }
-                error={form.errors.surname}
-              />
-              <DatePicker
-                size="lg"
-                required
-                placeholder="Birthday"
-                inputFormat="MM/DD/YYYY"
-                labelFormat="MM/YYYY"
-                styles={inputsStyles}
-                allowFreeInput
-                value={
-                  form.values.birthday
-                    ? new Date(form.values.birthday)
-                    : new Date()
-                }
-                rightSection={
-                  <FontAwesomeIcon color={mainAuthColor} icon={faCalendar} />
-                }
-                onChange={(value: Date) =>
-                  form.setFieldValue('birthday', formatDate(value))
-                }
-              />
-              <PasswordInput
-                size="lg"
-                variant="filled"
-                styles={{
-                  ...passwordStyles,
-                  ...inputsStyles,
-                }}
-                placeholder="Change Password"
-                value={form.values.password}
-                onChange={event =>
-                  form.setFieldValue('password', event.currentTarget.value)
-                }
-                error={
-                  form.errors.password &&
-                  'Password should include at least 6 characters'
-                }
-              />
-              <PasswordInput
-                size="lg"
-                variant="filled"
-                styles={{
-                  ...passwordStyles,
-                  ...inputsStyles,
-                }}
-                placeholder="Confirm new password"
-                value={form.values.confirmPassword}
-                onChange={event =>
-                  form.setFieldValue(
-                    'confirmPassword',
-                    event.currentTarget.value
-                  )
-                }
-                error={form.errors.password}
-              />
-            </Stack>
+          <MediaQuery smallerThan="xs" styles={{ flexDirection: 'column' }}>
+            <Group grow position="apart" align="flex-start">
+              <MediaQuery
+                smallerThan="xs"
+                styles={{ maxWidth: '100%', width: '100%' }}
+              >
+                <Stack>
+                  <TextInput
+                    size="lg"
+                    variant="filled"
+                    styles={inputsStyles}
+                    disabled
+                    value={form.values.email}
+                  />
+                  <TextInput
+                    size="lg"
+                    variant="filled"
+                    styles={inputsStyles}
+                    required
+                    placeholder="Name"
+                    value={form.values.name}
+                    onChange={event =>
+                      form.setFieldValue('name', event.currentTarget.value)
+                    }
+                    error={form.errors.email && 'Invalid email'}
+                  />
+                  <TextInput
+                    size="lg"
+                    variant="filled"
+                    styles={inputsStyles}
+                    required
+                    placeholder="Surname"
+                    value={form.values.surname}
+                    onChange={event =>
+                      form.setFieldValue('surname', event.currentTarget.value)
+                    }
+                    error={form.errors.surname}
+                  />
+                  <DatePicker
+                    size="lg"
+                    required
+                    placeholder="Birthday"
+                    inputFormat="MM/DD/YYYY"
+                    labelFormat="MM/YYYY"
+                    styles={inputsStyles}
+                    allowFreeInput
+                    value={
+                      form.values.birthday
+                        ? new Date(form.values.birthday)
+                        : new Date()
+                    }
+                    rightSection={
+                      <FontAwesomeIcon
+                        color={mainAuthColor}
+                        icon={faCalendar}
+                      />
+                    }
+                    onChange={(value: Date) =>
+                      form.setFieldValue('birthday', formatDate(value))
+                    }
+                  />
+                  <PasswordInput
+                    size="lg"
+                    variant="filled"
+                    styles={{
+                      ...passwordStyles,
+                      ...inputsStyles,
+                    }}
+                    placeholder="Change Password"
+                    value={form.values.password}
+                    onChange={event =>
+                      form.setFieldValue('password', event.currentTarget.value)
+                    }
+                    error={
+                      form.errors.password &&
+                      'Password should include at least 6 characters'
+                    }
+                  />
+                  <PasswordInput
+                    size="lg"
+                    variant="filled"
+                    styles={{
+                      ...passwordStyles,
+                      ...inputsStyles,
+                    }}
+                    placeholder="Confirm new password"
+                    value={form.values.confirmPassword}
+                    onChange={event =>
+                      form.setFieldValue(
+                        'confirmPassword',
+                        event.currentTarget.value
+                      )
+                    }
+                    error={form.errors.password}
+                  />
+                </Stack>
+              </MediaQuery>
+              <MediaQuery
+                smallerThan="xs"
+                styles={{ maxWidth: '100%', width: '100%' }}
+              >
+                <Stack>
+                  <Select
+                    size="lg"
+                    required
+                    placeholder="Country"
+                    value={form.values.country}
+                    data={Countries()}
+                    styles={{
+                      item: {
+                        fontSize: 14,
+                        padding: 8,
+                      },
+                      ...inputsStyles,
+                    }}
+                    allowDeselect
+                    clearable
+                    searchable
+                    onChange={(value: string) =>
+                      form.setFieldValue('country', value)
+                    }
+                  />
+                  <MultiSelect
+                    styles={multiSelect}
+                    size="lg"
+                    maxSelectedValues={4}
+                    required
+                    data={getLanguagesData()}
+                    placeholder="Languages you speak (max 4)"
+                    searchable
+                    clearable
+                    value={form.values.languages_to_teach}
+                    onChange={value =>
+                      form.setFieldValue('languages_to_teach', value)
+                    }
+                  />
+                  <MultiSelect
+                    size="lg"
+                    styles={multiSelect}
+                    maxSelectedValues={4}
+                    required
+                    data={getLanguagesData()}
+                    placeholder="Languages to learn (max 4)"
+                    searchable
+                    clearable
+                    value={form.values.languages_to_learn}
+                    onChange={value =>
+                      form.setFieldValue('languages_to_learn', value)
+                    }
+                  />
 
-            <Stack>
-              <Select
-                size="lg"
-                required
-                placeholder="Country"
-                value={form.values.country}
-                data={Countries()}
-                styles={{
-                  item: {
-                    fontSize: 14,
-                    padding: 8,
-                  },
-                  ...inputsStyles,
-                }}
-                allowDeselect
-                clearable
-                searchable
-                onChange={(value: string) =>
-                  form.setFieldValue('country', value)
-                }
-              />
-              <MultiSelect
-                styles={multiSelect}
-                size="lg"
-                maxSelectedValues={4}
-                required
-                data={getLanguagesData()}
-                placeholder="Languages you speak (max 4)"
-                searchable
-                clearable
-                value={form.values.languages_to_teach}
-                onChange={value =>
-                  form.setFieldValue('languages_to_teach', value)
-                }
-              />
-              <MultiSelect
-                size="lg"
-                styles={multiSelect}
-                maxSelectedValues={4}
-                required
-                data={getLanguagesData()}
-                placeholder="Languages to learn (max 4)"
-                searchable
-                clearable
-                value={form.values.languages_to_learn}
-                onChange={value =>
-                  form.setFieldValue('languages_to_learn', value)
-                }
-              />
+                  <Textarea
+                    variant="filled"
+                    value={form.values.description}
+                    styles={{
+                      ...{ input: { ...inputsStyles.input, height: 116 } },
+                    }}
+                    placeholder="Description"
+                    onChange={event =>
+                      form.setFieldValue('description', event.target.value)
+                    }
+                  />
+                </Stack>
+              </MediaQuery>
+            </Group>
+          </MediaQuery>
 
-              <Textarea
-                variant="filled"
-                value={form.values.description}
-                styles={{
-                  ...{ input: { ...inputsStyles.input, height: 116 } },
-                }}
-                placeholder="Description"
-                onChange={event =>
-                  form.setFieldValue('description', event.target.value)
-                }
-              />
-            </Stack>
-          </Group>
           <Button
             mt="xl"
             type="submit"
